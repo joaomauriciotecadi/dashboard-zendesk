@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios'
 import Header from './components/Header';
 import ListTickets from './components/ListTickets';
 import Indicators from './components/Indicators';
+import api from './services/api';
 
 function App() {
   const [listTickets, setListTickets] = useState()
-  const [currentDateTime, setCurrentDateTime] = useState(new Date());
-  const intervalTime = 5000;
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());  
 
   useEffect(() => {
+    const intervalTime = 60000 * 5;
     const fetchData = async () => {
-      const response = await axios.get('http://localhost:4000/tickets');     
+      const response = await api.get("/tickets");;     
       setListTickets(response.data.results);
     };
 

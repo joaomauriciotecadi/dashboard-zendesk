@@ -7,7 +7,8 @@ import {
     Td,  
     Stack,
     Skeleton,
-    Badge
+    Badge,
+    Box
   } from '@chakra-ui/react'
 import { formatDataHora, priority, status } from '../../utils/utils'
 
@@ -36,10 +37,13 @@ const ListTickets = ({listTickets}) => {
                     <Td>{ticket.raw_subject}</Td>
                     <Td>{formatDataHora(ticket.created_at)}</Td>
                     <Td>{formatDataHora(ticket.updated_at)}</Td> 
-                    <Td>                
+                    <Td>   
+                        <Box>
                         {ticket.tags.length > 0 ? 
                           ticket.tags.map( tag => <Badge m={1}>{tag}</Badge> ): 
-                          <span>N/a</span>}                
+                          <span>N/a</span>}   
+                        </Box>             
+                          
                     </Td> 
                   </Tr> )}    
                 </Tbody>
