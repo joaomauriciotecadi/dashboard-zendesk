@@ -3,15 +3,16 @@ import Header from './components/Header';
 import ListTickets from './components/ListTickets';
 import Indicators from './components/Indicators';
 import api from './services/api';
+import { Box } from '@chakra-ui/react';
 
 function App() {
   const [listTickets, setListTickets] = useState()
-  const [currentDateTime, setCurrentDateTime] = useState(new Date());  
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   useEffect(() => {
     const intervalTime = 60000 * 5;
     const fetchData = async () => {
-      const response = await api.get("/tickets");;     
+      const response = await api.get("/tickets");;
       setListTickets(response.data.results);
     };
 
@@ -21,7 +22,7 @@ function App() {
     // inicia o intervalo de tempo para a chamada da API
     const intervalId = setInterval(() => {
       fetchData();
-      setCurrentDateTime(new Date());      
+      setCurrentDateTime(new Date());
     }, intervalTime);
 
     // limpa o intervalo de tempo quando o componente for desmontado
@@ -29,11 +30,13 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Header currentDateTime={currentDateTime}/>
-      <Indicators listTickets={listTickets}/>
-      <ListTickets listTickets={listTickets}/>
-    </div>
+
+    <Box bg="gray.500" h={'100vh'}>
+      <Header currentDateTime={currentDateTime} />
+      <Indicators listTickets={listTickets} />
+      <ListTickets listTickets={listTickets} />
+    </Box>
+
   );
 }
 

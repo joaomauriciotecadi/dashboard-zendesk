@@ -1,30 +1,50 @@
 import {
-    Stat,
-    StatLabel,
-    StatNumber,
-    StatGroup,
-    Spinner,
-    Badge
-  } from '@chakra-ui/react'
+  Text,
+  Card,
+  CardHeader,
+  Heading,
+  CardBody,
+  Flex,
+  Spinner
+} from '@chakra-ui/react'
 import { priority } from '../../utils/utils'
 
-const Indicators = ({listTickets}) => {
-    const stats = ['urgent','high','normal','low']
+const Indicators = ({ listTickets }) => {
+  const stats = [{ crit: 'Urgent', color: 'red' },
+  { crit: 'High', color: 'orange' }, { crit: 'Normal', color: 'yellow' }, { crit: 'Low', color: 'red' }]
 
-    return(   
-      <StatGroup p='2rem'>
-          <Stat>
-              <StatLabel><Badge colorScheme="teal">Tickets</Badge></StatLabel>
-              <StatNumber fontSize="xxx-large">{listTickets ? listTickets.length : <Spinner/>}</StatNumber>              
-          </Stat>
-          {stats.map( (stat) => {
-            return(<Stat>
-                <StatLabel>{priority(stat)}</StatLabel>
-                <StatNumber fontSize="xxx-large">{listTickets ? listTickets.filter(ticket => ticket.priority === stat).length : <Spinner/>}</StatNumber>       
-            </Stat>)
-          })}       
-      </StatGroup>
-    )
+
+  return (
+    <Flex justify={'space-around'} mt='2'>
+      <Card minW='48'>
+        <CardHeader>
+          <Heading size='sm'>Tickets</Heading>
+        </CardHeader>
+        <CardBody>
+          <Text>{listTickets ? listTickets.length : <Spinner
+            thickness='2px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='blue.500'
+            size='sm'
+          />}</Text>
+        </CardBody>
+      </Card>
+      {
+        stats?.map((stat) => {
+          return (<Card colorScheme={'red'} minW='48'>
+            <CardHeader>
+              <Heading size='sm'>{stat.crit}</Heading>
+            </CardHeader>
+            <CardBody>
+              <Text>8</Text>
+            </CardBody>
+          </Card>)
+        })
+      }
+    </Flex >
+
+  )
 }
 
 export default Indicators
