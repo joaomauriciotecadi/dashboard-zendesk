@@ -1,27 +1,13 @@
-import { Flex, Box, Text } from '@chakra-ui/react'
+import { Flex, Heading, Text } from '@chakra-ui/react'
+import React from 'react'
 
-const Header = ({ currentDateTime }) => {
-  return (
-    <Flex
-      as="header"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      padding="1.5rem"
-      bg="gray.600"
-      color="white"
-    >
-      <Box>
-        <Text fontSize="lg" fontWeight="bold">
-          Dashboard - Tickets TI
-        </Text>
-      </Box>
-      <Flex align="center" justify="center">
-        <Box marginLeft="2">
-          <Text>Última atualização: {currentDateTime.toLocaleString()}</Text>
-        </Box>
-      </Flex>
-    </Flex>)
+
+export default function Header({ currentTime }) {
+    return (
+        <Flex flexDirection={'column'} justifyContent="center" alignItems={'center'} h='100%'>
+            <Heading>Tecadi.Labs</Heading>
+            <Heading>Dashboard - TI</Heading>
+            <Text>Updated at {currentTime}</Text>
+        </Flex>
+    )
 }
-
-export default Header

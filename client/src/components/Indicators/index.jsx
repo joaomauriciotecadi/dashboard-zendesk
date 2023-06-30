@@ -1,40 +1,41 @@
-import {
-  Text,
-  Card,
-  CardHeader,
-  Heading,
-  CardBody,
-  Flex,
-  Spinner
-} from '@chakra-ui/react'
-import { priority } from '../../utils/utils'
+import { Flex, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
+import React from 'react'
+import ChartPriority from '../ChartPriority';
 
-const Indicators = ({ listTickets }) => {
-  const stats = [{ crit: 'Tickets', color: '' }, { crit: 'Urgent', color: 'red' },
-  { crit: 'High', color: 'orange' }, { crit: 'Normal', color: 'yellow' }, { crit: 'Low', color: 'green' }]
+export default function Indicators({ tickets }) {
+    const totalTickets = JSON.parse(localStorage.getItem('totalTickets'));
 
+    return (
+        <Flex h='100%'>
+            {totalTickets ? <Grid
+                templateAreas={`"ind1 chart"
+                                "ind2 chart"`}
+                gridTemplateRows={'1fr 1fr'}
+                gridTemplateColumns={'1fr 1fr'}
+                gap='2'
+                w='100%'
+                color='blackAlpha.700'
+                bg='gray.300'
+            >
+                <GridItem p='2' bg='whiteAlpha.900' area={'ind1'} borderRadius={'5'}>
+                    <Flex flexDirection={'column'} alignItems="center" justifyContent={"center"} h='100%'>
+                        <Heading size={'md'}>Total Tickets</Heading>
+                        <Heading size={'4xl'}>{totalTickets[totalTickets.length - 1]?.total}</Heading>
+                    </Flex>
 
-  return (
-    <Flex justify={'space-around'} mt='2'>
-      {
-        stats?.map((stat) => {
-          return (<Card bg={"gray.700"} color={stat.color} minW='48'>
-            <CardBody>
-              <Heading size='sm' color={stat.color}>{stat.crit}</Heading>
-              <Text fontSize={'7xl'} align={'center'}  >{listTickets ? listTickets.length : <Spinner
-                thickness='2px'
-                speed='0.65s'
-                emptyColor='gray.200'
-                color='blue.500'
-                size='sm'
-              />}</Text>
-            </CardBody>
-          </Card>)
-        })
-      }
-    </Flex >
+                </GridItem>
+                <GridItem p='2' bg='whiteAlpha.900' area={'ind2'} borderRadius={'5'} >
+                    <Flex flexDirection={'column'} alignItems="center" justifyContent={"center"} h='100%'>
+                        <Heading size={'md'}>Assigned Tickets</Heading>
+                        <Heading size={'4xl'}>{totalTickets[totalTickets.length - 1]?.assignedTickets}</Heading>
+                    </Flex>
+                </GridItem>
+                <GridItem p='2' bg='whiteAlpha.900' area={'chart'} borderRadius={'5'}>
+                    <ChartPriority tickets={tickets} />
+                </GridItem>
+            </Grid> : <Text>No Data yet</Text>}
 
-  )
+        </Flex>
+
+    )
 }
-
-export default Indicators
